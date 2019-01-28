@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row log">
+    <div class="col-sm-6 margin-bottom-5">
+      <input type="text" class="form-control" placeholder="From (y-m-d h:m:s)" [(ngModel)]="from" (keyup.enter)="onReload()">
+    </div>
+    <div class="col-sm-6 margin-bottom-5">
+      <input type="text" class="form-control" placeholder="To (y-m-d h:m:s)" [(ngModel)]="to" (keyup.enter)="onReload()">
+    </div>
+    <div class="col-sm-6 margin-bottom-20">
+      <input type="text" class="form-control" placeholder="Max entry (default : 50)" [(ngModel)]="maxEntries" (keyup.enter)="onReload()">
+    </div>
+    <div class="col-sm-6 margin-bottom-20">
+      <button class="btn btn-primary form-control" (click)="onReload()">Reload</button>
+    </div>
+  </div>
+  <div class="row margin-top-10 log" *ngFor="let log of logs">
+    <div class="col-sm-4">Queue : {{ log.queue }}</div>
+    <div class="col-sm-4" [ngClass]="{'text-danger': log.returnValue > 0, 'text-success': log.returnValue == 0}">Result : {{ log.returnValue }}</div>
+    <div class="col-sm-4 small text-muted">{{log.date}}</div>
+    <div class="col-sm-12 text-primary small">Command : {{log.command}}</div>
+    <div class="col-sm-12">Stdout : <pre class="small">{{log.stdout}}</pre></div>
+    <div class="col-sm-12">Stderr : <pre class="text-danger small">{{log.stderr}}</pre></div>
+  </div>
+</div>

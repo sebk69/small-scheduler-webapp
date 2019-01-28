@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row margin-top-10 log" *ngFor="let log of errors">
+    <div class="col-sm-4">Queue : {{ log.queue }}</div>
+    <div class="col-sm-4 text-danger">Result : {{ log.returnValue }}</div>
+    <div class="col-sm-4 small text-muted">{{log.date}}</div>
+    <div class="col-sm-12 text-primary small">Command : {{log.command}}</div>
+    <div class="col-sm-6">Stdout : <pre class="small">{{log.stdout}}</pre></div>
+    <div class="col-sm-6">Stderr : <pre class="text-danger small">{{log.stderr}}</pre></div>
+    <div class="clearfix"></div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-6 form-group">
+    <label>Minutes</label>
+    <input type="text" [(ngModel)]="task.scheduledMinute" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-6 form-group">
+    <label>Hours</label>
+    <input type="text" [(ngModel)]="task.scheduledHour" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-6 form-group">
+    <label>Days</label>
+    <input type="text" [(ngModel)]="task.scheduledDay" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-6 form-group">
+    <label>Months</label>
+    <input type="text" [(ngModel)]="task.scheduledMonth" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-6 form-group">
+    <label>Week days</label>
+    <input type="text" [(ngModel)]="task.scheduledWeekday" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-6 form-group">
+    <label>Queue #</label>
+    <input type="number" [(ngModel)]="task.queue" class="form-control" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-12">
+    <label>Command</label>
+    <textarea class="form-control" [(ngModel)]="task.command" (keyup.enter)="onSubmit()"></textarea>
+  </div>
+  <div class="col-sm-12">
+    <button class="btn btn-success form-control margin-top-10" (click)="onSubmit()">Submit</button>
+  </div>
+  <p class="col-sm-12 text-danger margin-top-5" *ngIf="errorMessage != ''" [innerHtml]="errorMessage | safeHtml"></p>
+  <p class="col-sm-12 text-success margin-top-5 small text-center" *ngIf="updated">Task updated</p>
+</div>

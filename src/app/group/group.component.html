@@ -1,0 +1,99 @@
+<div class="row small-form margin-rigth-5 margin-left-5">
+  <label class="form-label col-sm-12">Group</label>
+  <div class="col-sm-11">
+    <input type="text" placeholder="Type group name" class="form-control" [(ngModel)]="selectedGroup.label" (keyup.enter)="onSubmit()">
+  </div>
+  <div class="col-sm-1 small text-muted" *ngIf="selectedGroup.fromDb">Created by {{selectedGroup.groupCreationUser.nickname}}</div>
+  <div class="col-sm-4" *ngIf="!selectedGroup.fromDb"></div>
+  <div class="col-sm-4" *ngIf="selectedGroup.fromDb">
+    <button class="btn btn-success text-white form-control margin-top-10" (click)="onNewTask(taskModal)"><i class="fas fa-plus-circle"></i> New task</button>
+  </div>
+  <div class="offset-sm-1 margin-top-10" [ngClass]="{'col-sm-6': tasks.length > 0, 'col-sm-3': tasks.length === 0}">
+    <button class="btn btn-primary form-control" (click)="onSubmit()">Submit</button>
+  </div>
+  <div class="col-sm-3 margin-top-10" *ngIf="tasks.length === 0">
+    <button class="btn btn-danger form-control" (click)="onRemove()">Remove</button>
+  </div>
+  <p class="col-sm-12 text-danger" *ngIf="groupErrorMessage != ''">
+    {{groupErrorMessage}}
+  </p>
+</div>
+
+<table class="table table-striped margin-top-10" *ngIf="selectedGroup.fromDb">
+  <thead>
+  <th>Minutes</th>
+  <th>Hours</th>
+  <th>Days</th>
+  <th>Months</th>
+  <th>Weekdays</th>
+  <th>Command</th>
+  <th>Action</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let task of tasks; let i = index;">
+    <td>{{task.scheduledMinute}}</td>
+    <td>{{task.scheduledHour}}</td>
+    <td>{{task.scheduledDay}}</td>
+    <td>{{task.scheduledMonth}}</td>
+    <td>{{task.scheduledWeekday}}</td>
+    <td>{{task.command}}</td>
+    <td class="form-group">
+      <button class="btn btn-primary btn-sm" (click)="onEditTask(taskModal, task)">Edit</button>&nbsp;
+      <button class="btn btn-danger btn-sm" (click)="onDeleteTaskConfirmation(deleteTask, task)">Delete</button>&nbsp;
+      <button class="btn btn-default btn-sm" (click)="onChangeLog(changeLogModal, task)">Change logs</button>
+      <button class="btn btn-warning btn-sm margin-left-10" (click)="onExecutionLog(executionLogsModal, task)">Execution logs</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #taskModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-task (event)="refreshEvent()" [task]="editedTask"></app-task>
+  </div>
+</ng-template>
+
+<ng-template #changeLogModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Changes logs</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-task-change-log [taskChangeLogs]="taskChangeLogs"></app-task-change-log>
+  </div>
+</ng-template>
+
+<ng-template #executionLogsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Execution logs</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-task-execution-logs [task]="editedTask"></app-task-execution-logs>
+  </div>
+</ng-template>
+
+<ng-template #deleteTask let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Changes logs</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this task ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="onDeleteTask(); modal.close();">Confirm</button>
+  </div>
+</ng-template>
