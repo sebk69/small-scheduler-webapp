@@ -31,12 +31,17 @@
   </thead>
   <tbody>
   <tr *ngFor="let task of tasks; let i = index;">
-    <td>{{task.scheduledMinute}}</td>
-    <td>{{task.scheduledHour}}</td>
-    <td>{{task.scheduledDay}}</td>
-    <td>{{task.scheduledMonth}}</td>
-    <td>{{task.scheduledWeekday}}</td>
-    <td>{{task.command}}</td>
+    <td *ngIf="task.enabled">{{task.scheduledMinute}}</td>
+    <td *ngIf="task.enabled">{{task.scheduledHour}}</td>
+    <td *ngIf="task.enabled">{{task.scheduledDay}}</td>
+    <td *ngIf="task.enabled">{{task.scheduledMonth}}</td>
+    <td *ngIf="task.enabled">{{task.scheduledWeekday}}</td>
+    <td *ngIf="!task.enabled" class="text-danger">-</td>
+    <td *ngIf="!task.enabled" class="text-danger">-</td>
+    <td *ngIf="!task.enabled" class="text-danger">-</td>
+    <td *ngIf="!task.enabled" class="text-danger">-</td>
+    <td *ngIf="!task.enabled" class="text-danger">-</td>
+    <td [ngClass]="{'text-danger': !task.enabled}">{{task.command}}</td>
     <td class="form-group">
       <button class="btn btn-primary btn-sm" (click)="onEditTask(taskModal, task)">Edit</button>&nbsp;
       <button class="btn btn-danger btn-sm" (click)="onDeleteTaskConfirmation(deleteTask, task)">Delete</button>&nbsp;

@@ -22,6 +22,7 @@ export interface ITaskData {
   scheduledWeekday: string;
   command: string;
   queue: string;
+  enabled: string;
   tasksChangesLogs: ITaskChangeLogData[];
   fromDb: boolean;
 }
@@ -57,6 +58,13 @@ export class TaskService {
     task.scheduledWeekday = data.scheduledWeekday;
     task.command = data.command;
     task.queue = <number><any>data.queue;
+
+    if (data.enabled === "0") {
+      task.enabled = false;
+    } else {
+      task.enabled = true;
+    }
+
     task.tasksChangesLogs = this.extractTaskChangeLogs(data.tasksChangesLogs);
     task.fromDb = data.fromDb;
 
@@ -127,5 +135,14 @@ export class TaskService {
    */
   public deleteTask(task: Task): Observable<string> {
     return this.httpClient.delete('/api/tasks/' + task.id.toString());
+  }
+
+  /**
+   * Enable or disable task
+   * @param task
+   */
+  public toggleEnabled(task: Task): Observable<Task> {
+    return this.httpClient.post<ITaskData>('/api/tasks/' + task.id + '/toggleEnabled')
+      .pipe(map(data => this.extractTask(data)));
   }
 }

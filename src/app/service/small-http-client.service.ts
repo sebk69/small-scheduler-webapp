@@ -95,7 +95,7 @@ export class SmallHttpClientService {
     return this.client.get<T>(environment.apiBaseUrl + url, {headers: httpHeaders});
   }
 
-  public put<T>(url: string, body: any): Observable<T> {
+  public put<T>(url: string, body: any = ""): Observable<T> {
 
     let httpHeaders: HttpHeaders;
 
@@ -107,7 +107,7 @@ export class SmallHttpClientService {
     return this.client.put<T>(environment.apiBaseUrl + url, body, {headers: httpHeaders});
   }
 
-  public post<T>(url: string, body: any): Observable<T> {
+  public post<T>(url: string, body: any = ""): Observable<T> {
 
     let httpHeaders: HttpHeaders;
 

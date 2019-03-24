@@ -16,6 +16,7 @@ export class Task {
     scheduledWeekday: string;
     command: string;
     queue: number;
+    enabled: boolean;
     tasksChangesLogs: TaskChangeLog[];
     fromDb: boolean;
 

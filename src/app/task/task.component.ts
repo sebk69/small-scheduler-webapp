@@ -37,4 +37,13 @@ export class TaskComponent implements OnInit {
         this.updated = true;
       }, error => this.errorMessage = error.error.replace('\n', '<br>') );
   }
+
+  onToggleEnabled() {
+    this.taskService.toggleEnabled(this.task)
+      .subscribe(data => {
+        this.task = data;
+        this.event.next('refreshEvent');
+        this.updated = true;
+      }, error => this.errorMessage = error.error.replace('\n', '<br>') );
+  }
 }
