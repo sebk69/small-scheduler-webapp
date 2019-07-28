@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
     this.screen = 'profile';
   }
 
+  onTaskFailureNotifications() {
+    this.screen = 'task-failure-notifications';
+  }
+
   onErrors() {
     this.screen = 'errors';
   }

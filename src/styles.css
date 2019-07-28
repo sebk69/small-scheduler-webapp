@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+.checkbox {
+  display: inline-block;
+  border: 2px solid cornflowerblue;
+  background-color: white;
+  border-radius: 12px;
+  height: 24px;
+  width: 40px;
+  text-align: left;
+  line-height: 21px;
+  padding-left: 3px;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox i {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  border: 2px solid blue;
+  border-radius: 6px;
+}
+
+.checkbox input + i {
+  margin-left: 2px;
+  background-color: white;
+  animation-duration: 500ms;
+  animation-name: checkbox-uncheck;
+}
+
+.checkbox input:checked + i {
+  margin-left: 16px;
+  background-color: blue;
+  animation-duration: 500ms;
+  animation-name: checkbox-check;
+}
+
+@keyframes checkbox-check {
+  from {background-color: white; margin-left: 2px;}
+  to {background-color: blue; margin-left: 16px;}
+}
+
+@keyframes checkbox-uncheck {
+  from {background-color: blue; margin-left: 16px;}
+  to {background-color: white; margin-left: 2px;}
+}

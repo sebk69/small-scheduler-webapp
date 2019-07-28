@@ -11,7 +11,7 @@ import {Group} from './classes/group';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
-interface IGroupData {
+export interface IGroupData {
   id: string;
   creationUserId: string;
   label: string;

@@ -6,8 +6,9 @@
   </nav>
   <div class="nav-item dropdown" *ngIf="userService.user != null">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><i class="fas fa-user"></i>&nbsp;{{userService.user.nickname}}</a>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item" href="" (click)="onProfile(); false">Profile</a>
+      <a class="dropdown-item" href="" (click)="onTaskFailureNotifications(); false">Task failure notifications</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="" (click)="onLogout(); false">Logout</a>
     </div>
@@ -16,5 +17,6 @@
 <div class="container-fluid">
   <app-errors *ngIf="screen == 'errors'"></app-errors>
   <app-profile *ngIf="screen == 'profile'"></app-profile>
+  <app-task-failure-notifications *ngIf="screen == 'task-failure-notifications'"></app-task-failure-notifications>
   <app-groups *ngIf="screen == 'groups'"></app-groups>
 </div>

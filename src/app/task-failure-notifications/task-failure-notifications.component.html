@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <p class="offset-sm-3 col-sm-6 text-center">Check groups you want to receive task failure notifications</p>
+    <ul class="list-group offset-sm-3 col-sm-6" *ngIf="groupsNotificationStates.length > 0">
+      <li class="list-group-item" *ngFor="let groupNotificationsState of groupsNotificationStates">
+        <div class="row">
+          <div class="col-sm-8">
+            {{groupNotificationsState.group.label}}
+          </div>
+          <div class="col-sm-4 text-right">
+            <label class="checkbox"><input type="checkbox" [(ngModel)]="groupNotificationsState.active"><i></i></label>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <p class="text-warning offset-sm-3 col-sm-6 text-center" *ngIf="groupsNotificationStates.length == 0">Their's no group actualy</p>
+    <button class="btn btn-success offset-sm-3 col-sm-6 text-center margin-top-10" *ngIf="groupsNotificationStates.length > 0" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

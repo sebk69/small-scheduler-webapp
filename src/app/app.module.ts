@@ -25,6 +25,7 @@ import {safeHtmlPipe} from './pipe/safeHtml';
 import { TaskChangeLogComponent } from './task-change-log/task-change-log.component';
 import { TaskExecutionLogsComponent } from './task-execution-logs/task-execution-logs.component';
 import { ErrorsComponent } from './errors/errors.component';
+import { TaskFailureNotificationsComponent } from './task-failure-notifications/task-failure-notifications.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     TaskChangeLogComponent,
     TaskExecutionLogsComponent,
     ErrorsComponent,
+    TaskFailureNotificationsComponent,
   ],
   imports: [
     BrowserModule,
