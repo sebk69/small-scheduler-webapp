@@ -9,6 +9,7 @@
     <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item" href="" (click)="onProfile(); false">Profile</a>
       <a class="dropdown-item" href="" (click)="onTaskFailureNotifications(); false">Task failure notifications</a>
+      <a class="dropdown-item" href="" (click)="onParameters(); false">Parameters</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="" (click)="onLogout(); false">Logout</a>
     </div>
@@ -18,5 +19,6 @@
   <app-errors *ngIf="screen == 'errors'"></app-errors>
   <app-profile *ngIf="screen == 'profile'"></app-profile>
   <app-task-failure-notifications *ngIf="screen == 'task-failure-notifications'"></app-task-failure-notifications>
+  <app-parameter *ngIf="screen == 'parameter'"></app-parameter>
   <app-groups *ngIf="screen == 'groups'"></app-groups>
 </div>

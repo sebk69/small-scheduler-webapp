@@ -53,13 +53,13 @@ export class TaskService {
     task.groupId = <number><any>data.groupId;
     task.scheduledMinute = data.scheduledMinute;
     task.scheduledHour = data.scheduledHour;
-    task.scheduledDay = data.scheduledWeekday;
+    task.scheduledDay = data.scheduledDay;
     task.scheduledMonth = data.scheduledMonth;
     task.scheduledWeekday = data.scheduledWeekday;
     task.command = data.command;
     task.queue = <number><any>data.queue;
 
-    if (data.enabled === "0") {
+    if (data.enabled === '0') {
       task.enabled = false;
     } else {
       task.enabled = true;

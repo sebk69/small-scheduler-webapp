@@ -60,6 +60,10 @@ export class HomeComponent implements OnInit {
     this.screen = 'groups';
   }
 
+  onParameters() {
+    this.screen = 'parameter';
+  }
+
   onLogout() {
     this.http.logout();
     this.router.navigateByUrl('/login');

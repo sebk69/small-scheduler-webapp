@@ -72,7 +72,7 @@ export class GroupService {
    * Update a group
    */
   public postGroup(group: Group): Observable<Group> {
-    return this.httpClient.post<IGroupData>("/api/groups", group)
+    return this.httpClient.post<IGroupData>('/api/groups', group)
         .pipe(map(data => this.extractGroup(data)));
   }
 
