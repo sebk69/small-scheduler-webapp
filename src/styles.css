@@ -8,6 +8,7 @@
   text-align: left;
   line-height: 21px;
   padding-left: 3px;
+  cursor: pointer;
 }
 
 .checkbox input {

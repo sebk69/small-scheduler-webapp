@@ -13,9 +13,29 @@
                 <input type="password" placeholder="Password" class="form-control" [(ngModel)]="password"
                        (keyup.enter)="onLogin()">
             </div>
+            <p class="col-xs-12 text-right">
+              <a href="" (click)="onLostPassword(lostPasswordModal);false;">Lost password</a>
+            </p>
             <div class="form-group">
                 <button class="btn btn-primary form-control" (click)="onLogin()">Login</button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #lostPasswordModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Lost password</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <input type="text" placeholder="Email or nickname" class="form-control" [(ngModel)]="lostPasswordUsername" (keyup.enter)="onConfirmLostPassword()">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onConfirmLostPassword()">Send email</button>
+  </div>
+</ng-template>

@@ -5,8 +5,9 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import {TaskFailureNotification} from "../service/classes/taskFailureNotification";
-import {TaskFailureNotificationService} from "../service/task-failure-notification.service";
+import {TaskFailureNotification} from '../service/classes/taskFailureNotification';
+import {TaskFailureNotificationService} from '../service/task-failure-notification.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-task-failure-notifications',
@@ -17,15 +18,28 @@ export class TaskFailureNotificationsComponent implements OnInit {
 
   public groupsNotificationStates: TaskFailureNotification[] = [];
 
-  constructor(private taskFailureNotificationService: TaskFailureNotificationService) { }
+  constructor(private taskFailureNotificationService: TaskFailureNotificationService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.taskFailureNotificationService.getNotificationsStateForMyself()
-      .subscribe(data => {this.groupsNotificationStates = data;})
+      .subscribe(data => {this.groupsNotificationStates = data; } );
   }
 
-  public onSubmit() {
-    console.log(this.groupsNotificationStates[0].active);
+  public onSubmit(content) {
+    this.taskFailureNotificationService.postNotificationsStates(this.groupsNotificationStates)
+      .subscribe(data => {
+        for (const elementRemote of data) {
+          for (const elementLocal of this.groupsNotificationStates) {
+            if (elementRemote.groupId === elementLocal.groupId) {
+              elementLocal.id = elementRemote.id;
+              elementLocal.fromDb = elementRemote.fromDb;
+              elementLocal.active = elementRemote.active;
+            }
+          }
+        }
+        this.modalService.open(content, {ariaLabelledBy: 'Notifications updated'}).result
+          .then((result) => {}, (reason) => {});
+      }, error => { alert('Une erreur est survenue.'); } );
   }
 
 }

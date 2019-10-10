@@ -86,4 +86,11 @@ export class UserService {
   public checkPassword(password) {
     return this.httpClient.post<string>('/api/users/password', {password: password});
   }
+
+  /**
+   * Send lost password email
+   */
+  public lostPassword(username) {
+    return this.httpClient.post<string>('/security/passwordLost', {username: username});
+  }
 }

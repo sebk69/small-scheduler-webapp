@@ -4,16 +4,28 @@
     <ul class="list-group offset-sm-3 col-sm-6" *ngIf="groupsNotificationStates.length > 0">
       <li class="list-group-item" *ngFor="let groupNotificationsState of groupsNotificationStates">
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-8 margin-top-5">
             {{groupNotificationsState.group.label}}
           </div>
-          <div class="col-sm-4 text-right">
+          <div class="col-sm-4 text-right margin-top-3">
             <label class="checkbox"><input type="checkbox" [(ngModel)]="groupNotificationsState.active"><i></i></label>
           </div>
         </div>
       </li>
     </ul>
     <p class="text-warning offset-sm-3 col-sm-6 text-center" *ngIf="groupsNotificationStates.length == 0">Their's no group actualy</p>
-    <button class="btn btn-success offset-sm-3 col-sm-6 text-center margin-top-10" *ngIf="groupsNotificationStates.length > 0" (click)="onSubmit()">Submit</button>
+    <button class="btn btn-success offset-sm-3 col-sm-6 text-center margin-top-10" *ngIf="groupsNotificationStates.length > 0" (click)="onSubmit(updatedModal)">Submit</button>
   </div>
 </div>
+
+<ng-template #updatedModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-check text-success"></i>&nbsp;Notifiactions updated</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="modal.close();">Done</button>
+</div>
+</ng-template>

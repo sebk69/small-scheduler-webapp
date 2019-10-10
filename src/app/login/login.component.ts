@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,16 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  public lostPasswordUsername: string;
+  public lostPasswordModal: NgbModalRef = null;
+
   private _errorMessage = '';
   private _username = '';
   private _password = '';
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private modalService: NgbModal) {
+    this.lostPasswordUsername = '';
+  }
 
 
   /**
@@ -40,6 +46,22 @@ export class LoginComponent {
       }, error => {
         this._errorMessage = 'Bad credentials';
       });
+  }
+
+  /**
+   * Lost password
+   */
+  public onLostPassword(content): void {
+    this.lostPasswordModal = this.modalService.open(content, {ariaLabelledBy: 'Lost password form'});
+    this.lostPasswordModal.result.then((result) => {}, (reason) => {});
+  }
+
+  public onConfirmLostPassword(): void {
+    this.userService.lostPassword(this.lostPasswordUsername)
+      .subscribe( data => this.lostPasswordModal.close(), error => {
+        this.lostPasswordModal.close();
+        this._errorMessage = 'Can\'t send email';
+      } );
   }
 
   get errorMessage(): string {

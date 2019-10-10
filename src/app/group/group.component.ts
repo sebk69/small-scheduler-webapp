@@ -51,20 +51,20 @@ export class GroupComponent implements OnInit, OnChanges {
 
   onRemove() {
     this.groupService.deleteGroup(this.selectedGroup)
-        .subscribe(data => {this.event.next('refreshEvent')}, error => this.groupErrorMessage = error.error )
+        .subscribe(data => {this.event.next('refreshEvent')}, error => this.groupErrorMessage = error.error );
   }
 
   onNewTask(content) {
     this.editedTask = new Task();
     this.editedTask.groupId = this.selectedGroup.id;
     this.modalService.open(content, {ariaLabelledBy: 'Update task'}).result
-        .then((result) => {this.editedTask = null;}, (reason) => {this.editedTask = null;});
+        .then((result) => { this.editedTask = null; }, (reason) => { this.editedTask = null; });
   }
 
   onEditTask(content, task: Task) {
     this.editedTask = task;
-    this.modalService.open(content, {ariaLabelledBy: 'Update task'}).result
-        .then((result) => {this.editedTask = null;}, (reason) => {this.editedTask = null;});
+    this.modalService.open(content).result
+        .then((result) => { this.editedTask = null; }, (reason) => { this.editedTask = null; });
   }
 
   onDeleteTaskConfirmation(content, task: Task) {
