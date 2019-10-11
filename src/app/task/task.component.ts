@@ -46,4 +46,11 @@ export class TaskComponent implements OnInit {
         this.updated = true;
       }, error => this.errorMessage = error.error.replace('\n', '<br>') );
   }
+
+  onExecute() {
+    this.taskService.execute(this.task)
+      .subscribe(data => {
+        this.updated = true;
+      }, error => this.errorMessage = error.error.replace('\n', '<br>') )
+  }
 }

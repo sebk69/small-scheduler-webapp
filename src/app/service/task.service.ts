@@ -124,14 +124,13 @@ export class TaskService {
   /**
    * Update a task
    */
-  public postTask(task: Task):Observable<Task> {
+  public postTask(task: Task): Observable<Task> {
     return this.httpClient.post<ITaskData>('/api/tasks', task)
         .pipe(map(data => this.extractTask(data)));
   }
 
   /**
    * Delete a task
-   * @param task
    */
   public deleteTask(task: Task): Observable<string> {
     return this.httpClient.delete('/api/tasks/' + task.id.toString());
@@ -139,10 +138,16 @@ export class TaskService {
 
   /**
    * Enable or disable task
-   * @param task
    */
   public toggleEnabled(task: Task): Observable<Task> {
     return this.httpClient.post<ITaskData>('/api/tasks/' + task.id + '/toggleEnabled')
       .pipe(map(data => this.extractTask(data)));
+  }
+
+  /**
+   * Execute task
+   */
+  public execute(task: Task): Observable<string> {
+    return this.httpClient.post<string>('/api/tasks/' + task.id + '/execute');
   }
 }

@@ -32,6 +32,9 @@
     <button class="btn btn-info form-control margin-top-10" (click)="onToggleEnabled()" *ngIf="!task.enabled">Enable task</button>
   </div>
   <div class="col-sm-12">
+    <button class="btn btn-info form-control margin-top-10" (click)="onExecute()">Execute</button>
+  </div>
+  <div class="col-sm-12">
     <button class="btn btn-success form-control margin-top-10" (click)="onSubmit()">Submit</button>
   </div>
   <p class="col-sm-12 text-danger margin-top-5" *ngIf="errorMessage != ''" [innerHtml]="errorMessage | safeHtml"></p>

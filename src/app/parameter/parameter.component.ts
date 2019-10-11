@@ -15,6 +15,7 @@ import {Parameter, parametersKeys} from '../service/classes/parameter';
 })
 export class ParameterComponent implements OnInit {
   public purgExecutionLogs?: Parameter;
+  public emailFrom?: Parameter;
 
   constructor(private parameterService: ParameterService) { }
 
@@ -22,6 +23,10 @@ export class ParameterComponent implements OnInit {
     this.parameterService.get(parametersKeys.purgeExecutionLogs)
       .subscribe(data => {
         this.purgExecutionLogs = data;
+      } );
+    this.parameterService.get(parametersKeys.emailFrom)
+      .subscribe(data => {
+        this.emailFrom = data;
       } );
   }
 

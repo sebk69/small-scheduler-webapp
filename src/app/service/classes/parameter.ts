@@ -6,6 +6,7 @@
 
 export enum parametersKeys {
   purgeExecutionLogs = 'purge-execution-logs',
+  emailFrom = 'email-from',
 }
 
 export class Parameter {
