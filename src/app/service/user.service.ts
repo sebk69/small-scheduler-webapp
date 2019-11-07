@@ -10,6 +10,7 @@ import {User} from './classes/user';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {SmallHttpClientService} from './small-http-client.service';
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 export interface IUserData {
@@ -21,6 +22,12 @@ export interface IUserData {
   roles: string[];
   enabled: boolean;
   fromDb: boolean;
+}
+
+export class CreateUserForm {
+  public email = '';
+  public nickname = '';
+  public password = '';
 }
 
 @Injectable({
@@ -47,6 +54,19 @@ export class UserService {
     user.fromDb = data.fromDb;
 
     return user;
+  }
+
+  /**
+   * Extract users data
+   */
+  public extractUsers(datas: IUserData[]): User[] {
+    const users: User[] = [];
+
+    for (const data of datas) {
+      users.push(this.extractUser(data));
+    }
+
+    return users;
   }
 
   /**
@@ -81,6 +101,14 @@ export class UserService {
   }
 
   /**
+   * Create user
+   */
+  public createUser(userForm: CreateUserForm) {
+    return this.httpClient.post<IUserData>('/api/users', userForm)
+      .pipe(map(data => this.extractUser(data)));
+  }
+
+  /**
    * Check current user password
    */
   public checkPassword(password) {
@@ -92,5 +120,13 @@ export class UserService {
    */
   public lostPassword(username) {
     return this.httpClient.post<string>('/security/passwordLost', {username: username});
+  }
+
+  /**
+   * Get users list
+   */
+  public listUsers() {
+    return this.httpClient.get<IUserData[]>('/api/users')
+      .pipe(map(data => this.extractUsers(data)));
   }
 }

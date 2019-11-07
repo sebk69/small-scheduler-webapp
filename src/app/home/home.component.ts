@@ -64,6 +64,10 @@ export class HomeComponent implements OnInit {
     this.screen = 'parameter';
   }
 
+  onUserManagement() {
+    this.screen = 'user-management';
+  }
+
   onLogout() {
     this.http.logout();
     this.router.navigateByUrl('/login');

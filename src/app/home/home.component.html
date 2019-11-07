@@ -1,5 +1,5 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-  <h5 class="my-0 mr-md-auto font-weight-normal">Small Scheduler</h5>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" *ngIf="userService.user !== null">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Small Scheduler<span *ngIf="userService.user.createdAt === userService.user.updatedAt" class="text-danger margin-left-10">Your must change your password</span></h5>
   <nav class="my-2 my-md-0 mr-md-3 nav">
     <a class="nav-link" href="" (click)="onErrors(); false"><i class="fas fa-exclamation-triangle"></i> Last errors</a>
     <a class="nav-link" href="" (click)="onGroups(); false"><i class="fas fa-layer-group"></i> Tasks</a>
@@ -9,16 +9,19 @@
     <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item" href="" (click)="onProfile(); false">Profile</a>
       <a class="dropdown-item" href="" (click)="onTaskFailureNotifications(); false">Task failure notifications</a>
-      <a class="dropdown-item" href="" (click)="onParameters(); false">Parameters</a>
+      <div class="dropdown-divider" *ngIf="userService.user.hasRole('ROLE_ADMIN')"></div>
+      <a class="dropdown-item" href="" (click)="onParameters(); false" *ngIf="userService.user.hasRole('ROLE_ADMIN')">Parameters</a>
+      <a class="dropdown-item" href="" (click)="onUserManagement(); false" *ngIf="userService.user.hasRole('ROLE_ADMIN')">Users management</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="" (click)="onLogout(); false">Logout</a>
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="userService.user !== null">
   <app-errors *ngIf="screen == 'errors'"></app-errors>
   <app-profile *ngIf="screen == 'profile'"></app-profile>
   <app-task-failure-notifications *ngIf="screen == 'task-failure-notifications'"></app-task-failure-notifications>
-  <app-parameter *ngIf="screen == 'parameter'"></app-parameter>
+  <app-parameter *ngIf="screen == 'parameter' && userService.user.hasRole('ROLE_ADMIN')"></app-parameter>
   <app-groups *ngIf="screen == 'groups'"></app-groups>
+  <app-user-management *ngIf="screen == 'user-management' && userService.user.hasRole('ROLE_ADMIN')"></app-user-management>
 </div>

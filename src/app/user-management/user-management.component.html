@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row small-form">
+    <table class="table">
+      <thead>
+      <th>Nickname</th>
+      <th>Email</th>
+      <th>Enabled</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td class="align-middle">{{user.nickname}}</td>
+        <td class="align-middle">{{user.email}}</td>
+        <td class="align-middle"><label class="checkbox"><input type="checkbox" [(ngModel)]="user.enabled"><i></i></label></td>
+        <td class="align-middle">{{user.createdAt}}</td>
+        <td class="align-middle">{{user.updatedAt}}</td>
+        <td class="align-middle">
+          <button class="btn btn-sm btn-success float-right margin-left-5" (click)="onUpdate(user, updatedModal)">Update</button>
+          <button class="btn btn-sm btn-info float-right" (click)="onRolesList(user, rolesListModal, updatedModal)">Roles</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="col-sm-12"><button class="btn btn-success float-right" (click)="onCreateUser(createdModal)"><i class="fas fa-plus-circle"></i> Add user</button></div>
+  </div>
+</div>
+
+<ng-template #rolesListModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Roles for {{editRoleNickname}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-content padding-left-10">
+    <ul class="list-group col-sm-12 margin-bottom-5 margin-top-5">
+      <li class="list-group-item align-middle list-group-item-secondary">
+        <label>Adminitrator</label>
+        <label class="checkbox float-right"><input type="checkbox" [(ngModel)]="editRoleAdmin"><i></i></label>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="modal.close();">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #updatedModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-check text-success"></i>&nbsp;User updated</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="modal.close();">Done</button>
+  </div>
+</ng-template>
+
+<ng-template #createdModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-plus-circle text-success"></i>&nbsp;Create user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-content padding-left-10">
+    <input type="text" placeholder="Nickname" class="form-control margin-top-10" [(ngModel)]="createUserForm.nickname" (keyup.enter)="onPerformCreateUser()">
+    <input type="text" placeholder="Email" class="form-control margin-top-5" [(ngModel)]="createUserForm.email" (keyup.enter)="onPerformCreateUser()">
+    <input type="text" placeholder="Default password" class="form-control margin-top-5 margin-bottom-10" [(ngModel)]="createUserForm.password" (keyup.enter)="onPerformCreateUser()">
+    <p class="text-danger" *ngIf="createUserError !== ''" [innerHTML]="createUserError"></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="onPerformCreateUser()">Create</button>
+  </div>
+</ng-template>

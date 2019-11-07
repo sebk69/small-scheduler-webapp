@@ -17,4 +17,38 @@ export class User {
     public fromDb: boolean;
 
     constructor() {}
+
+  /**
+   * Check if user has a role
+   */
+  public hasRole(role) {
+      let hasRole = false;
+      for (const item of this.roles) {
+        switch (item) {
+          case role:
+            hasRole = true;
+            break;
+        }
+      }
+
+      return hasRole;
+    }
+
+  /**
+   * Add a role
+   */
+  public addRole(roleToSet) {
+      const hasRole = this.hasRole(roleToSet);
+
+      if (!hasRole) {
+        this.roles.push(roleToSet);
+      }
+    }
+
+  /**
+   * Remove a role
+   */
+  public removeRole(roleToRemove) {
+      this.roles = this.roles.filter(item => item !== roleToRemove);
+    }
 }

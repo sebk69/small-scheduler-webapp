@@ -27,6 +27,7 @@ import { TaskExecutionLogsComponent } from './task-execution-logs/task-execution
 import { ErrorsComponent } from './errors/errors.component';
 import { TaskFailureNotificationsComponent } from './task-failure-notifications/task-failure-notifications.component';
 import { ParameterComponent } from './parameter/parameter.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     ErrorsComponent,
     TaskFailureNotificationsComponent,
     ParameterComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,
