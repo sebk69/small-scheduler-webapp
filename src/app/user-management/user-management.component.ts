@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {CreateUserForm, UserService} from '../service/user.service';
 import {User} from '../service/classes/user';
+import {Group} from '../service/classes/group';
+import {GroupService} from '../service/group.service';
 
 @Component({
   selector: 'app-user-management',
@@ -15,8 +17,11 @@ export class UserManagementComponent implements OnInit {
   public createUserForm: CreateUserForm;
   private createUserModal: NgbModalRef;
   public createUserError = '';
+  public editUser?: User;
+  public groupsRigths?: Group[];
+  public groupsRigthsModal: NgbModalRef;
 
-  constructor(private modalService: NgbModal, private userService: UserService) { }
+  constructor(private modalService: NgbModal, private userService: UserService, private groupService: GroupService) { }
 
   ngOnInit() {
     this.userService.listUsers()
@@ -59,7 +64,7 @@ export class UserManagementComponent implements OnInit {
 
     // Open modal
 
-    this.createUserModal = this.modalService.open(createUserContent, {ariaLabelledBy: 'Create user'})
+    this.createUserModal = this.modalService.open(createUserContent, {ariaLabelledBy: 'Create user'});
     this.createUserModal.result
       .then(result => {}, reason => {});
   }
@@ -74,6 +79,24 @@ export class UserManagementComponent implements OnInit {
       error => {
         this.createUserError = error.error.split('\n').join('<br>');
       });
+  }
+
+  onGroupsRigths(user: User, groupsRigthsModal) {
+    this.editUser = user;
+    this.groupService.getGroupRigths(user.id)
+      .subscribe(data => {
+        this.groupsRigths = data;
+        this.groupsRigthsModal = this.modalService.open(groupsRigthsModal, {ariaLabelledBy: 'Groups rigths'});
+      });
+  }
+
+  onUpdateGroupsRigths(updatedModal) {
+    this.groupService.putGroupRigths(this.editUser.id, this.groupsRigths)
+      .subscribe(data => {
+        this.groupsRigthsModal.close();
+        this.modalService.open(updatedModal, {ariaLabelledBy: 'User updated'}).result
+          .then(result => {}, reason => {});
+      })
   }
 
 }

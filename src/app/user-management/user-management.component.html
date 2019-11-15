@@ -18,7 +18,8 @@
         <td class="align-middle">{{user.updatedAt}}</td>
         <td class="align-middle">
           <button class="btn btn-sm btn-success float-right margin-left-5" (click)="onUpdate(user, updatedModal)">Update</button>
-          <button class="btn btn-sm btn-info float-right" (click)="onRolesList(user, rolesListModal, updatedModal)">Roles</button>
+          <button class="btn btn-sm btn-info float-right margin-left-5" (click)="onRolesList(user, rolesListModal, updatedModal)">Roles</button>
+          <button class="btn btn-sm btn-info float-right margin-left-5" (click)="onGroupsRigths(user, groupsRigthsModal)">Groups</button>
         </td>
       </tr>
       </tbody>
@@ -74,5 +75,31 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="onPerformCreateUser()">Create</button>
+  </div>
+</ng-template>
+
+<ng-template #groupsRigthsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Groups rigths for user {{editUser.nickname}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-content padding-left-10">
+    <ul class="list-group col-sm-12" *ngIf="groupsRigths.length > 0">
+      <li class="list-group-item" *ngFor="let groupRigths of groupsRigths">
+        <div class="row">
+          <div class="col-sm-8 margin-top-5">
+            {{groupRigths.label}}
+          </div>
+          <div class="col-sm-4 text-right margin-top-3">
+            <label class="checkbox"><input type="checkbox" [(ngModel)]="groupRigths.allowed"><i></i></label>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="onUpdateGroupsRigths(updatedModal)">Update</button>
   </div>
 </ng-template>

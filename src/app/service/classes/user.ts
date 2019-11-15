@@ -5,7 +5,7 @@
  */
 
 export class User {
-    public id: string;
+    public id: number;
     public email: string = null;
     public nickname: string = null;
     public createdAt: string = null;

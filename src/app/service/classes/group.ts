@@ -11,5 +11,6 @@ export class Group {
   public creationUserId?: number;
   public label: string;
   public groupCreationUser?: User;
-  public fromDb: boolean = false;
+  public allowed?: boolean;
+  public fromDb = false;
 }

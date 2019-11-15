@@ -16,6 +16,7 @@ export interface IGroupData {
   creationUserId: string;
   label: string;
   groupCreationUser: IUserData;
+  allowed?: boolean;
   fromDb: boolean;
 }
 
@@ -55,6 +56,7 @@ export class GroupService {
     } else {
       group.groupCreationUser = null;
     }
+    group.allowed = data.allowed;
     group.fromDb = data.fromDb;
 
     return group;
@@ -81,5 +83,21 @@ export class GroupService {
    */
   public deleteGroup(group: Group): Observable<string> {
     return this.httpClient.delete('/api/groups/' + group.id.toString());
+  }
+
+  /**
+   * Get groups rigths for user identified by userId
+   */
+  public getGroupRigths(userId: number): Observable<Group[]> {
+    return this.httpClient.get<IGroupData[]>('/api/groups/rigths/' + userId.toString())
+      .pipe(map(data => this.extractGroups(data)));
+  }
+
+  /**
+   * Post groups rigths for user identified by userId
+   */
+  public putGroupRigths(userId: number, groups: Group[]): Observable<Group[]> {
+    return this.httpClient.put<IGroupData[]>('/api/groups/rigths/' + userId.toString(), groups)
+      .pipe(map(data => this.extractGroups(data)));
   }
 }
