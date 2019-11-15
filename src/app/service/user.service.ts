@@ -44,7 +44,7 @@ export class UserService {
   public extractUser(data: IUserData): User {
     const user = new User();
 
-    user.id = data.id;
+    user.id = Number(data.id);
     user.email = data.email;
     user.nickname = data.nickname;
     user.createdAt = data.createdAt;
